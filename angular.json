@@ -2,9 +2,24 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
+
+      "my-shared-lib": {
+      "projectType": "library",
+      "root": "projects/my-shared-lib",
+      "sourceRoot": "projects/my-shared-lib/src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/my-shared-lib/ng-package.json"
+          }
+        }
+      }
+    }
   }
 }

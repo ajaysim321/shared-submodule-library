@@ -1,0 +1,73 @@
+:host ::ng-deep .mat-mdc-dialog-container.modern-dialog {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+/* Header */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #f5f7fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dialog-header h4 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+::ng-deep .mat-mdc-icon-button.close-button {
+  background-color: transparent !important; /* remove circle background */
+  color: #666 !important; /* default color */
+  transition: color 0.2s ease;
+}
+
+::ng-deep .mat-mdc-icon-button.close-button:hover {
+  background-color: transparent !important; /* no background on hover */
+  color: #000 !important; /* darker on hover */
+}
+
+::ng-deep .mat-mdc-icon-button.close-button .mat-icon {
+  font-size: 20px; /* optional: adjust icon size */
+}
+
+
+/* Content */
+.dialog-content {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Actions */
+.dialog-actions {
+  padding: 12px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Buttons */
+.dialog-actions button {
+  min-width: 90px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.confirm-button{
+  background-color: #060606;
+  color: #fff;
+}
+
+.cancel-button{
+  color: #080808;
+}
