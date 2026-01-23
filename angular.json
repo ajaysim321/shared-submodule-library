@@ -5,18 +5,18 @@
     "packageManager": "npm",
     "analytics": false
   },
-  "newProjectRoot": "projects",
+  "newProjectRoot": "libraries",
   "projects": {
 
       "my-shared-lib": {
       "projectType": "library",
-      "root": "projects/my-shared-lib",
-      "sourceRoot": "projects/my-shared-lib/src",
+      "root": "libraries/my-shared-lib",
+      "sourceRoot": "libraries/my-shared-lib/src",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/my-shared-lib/ng-package.json"
+            "project": "libraries/my-shared-lib/ng-package.json"
           }
         }
       }
