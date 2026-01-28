@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(npm install)",
-      "Bash(powershell -Command \"cd ''c:\\\\Projects\\\\shared-submodule-library''; npm install echarts ngx-echarts echarts-stat @swimlane/ngx-datatable keycloak-angular keycloak-js ngx-mat-select-search @ng-select/ng-select file-saver @types/file-saver --save --legacy-peer-deps\")",
-      "Bash(powershell -Command \"cd ''c:\\\\Projects\\\\shared-submodule-library''; npx ng build my-shared-lib 2>&1 | Select-Object -First 100\")"
-    ]
-  }
-}
