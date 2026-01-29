@@ -4,7 +4,6 @@ import { debounceTime, distinctUntilChanged, Subject, Subscription, switchMap, t
 import { ConfigService } from '../../shared-services/config.service';
 import { GlobalFilterService } from '../../shared-services/global-filter-service';
 import { formatDecimalWithCommas, formatStat, formatStatOneDecimal, oneDecimalWithCommas } from '../../utils/format.utils';
-import { CustomPayloadService } from '../../../../../my-app/src/app/shared/dashboard-payload-services/custom-payload.service';
 
 @Component({
   selector: 'lib-waterfall-stack-chart',
@@ -21,7 +20,7 @@ export class WaterfallStackChartComponent {
   private resizeHandler = () => this.myChart?.resize();
 
   constructor(
-    private configService: CustomPayloadService,
+    private configService: ConfigService,
     private globalFilterService: GlobalFilterService
   ) { }
 

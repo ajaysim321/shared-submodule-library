@@ -8,7 +8,7 @@ import { debounceTime, Subject, switchMap, tap } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { PageEvent } from '@angular/material/paginator';
-import { CustomPayloadService } from '../../../../../my-app/src/app/shared/dashboard-payload-services/custom-payload.service';
+import { CustomPayloadService } from '../../../../../../../../projects/my-app/src/app/shared/dashboard-payload-services/custom-payload.service';
 
 @Component({
   selector: 'app-table',

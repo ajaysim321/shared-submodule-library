@@ -17,7 +17,6 @@ import {
   formatDecimalWithCommas,
 } from '../../utils/format.utils';
 import { DataErrorComponent } from '../../global-components/data-error/data-error.component';
-import { CustomPayloadService } from '../../../../../my-app/src/app/shared/dashboard-payload-services/custom-payload.service';
 
 @Component({
   selector: 'app-tree-map-chart',
@@ -53,7 +52,7 @@ export class TreemapChartComponent implements AfterViewInit, OnDestroy {
   public activeLegend: string | null = null;
 
   constructor(
-    private configService: CustomPayloadService,
+    private configService: ConfigService,
     private globalFilterService: GlobalFilterService
   ) { }
 

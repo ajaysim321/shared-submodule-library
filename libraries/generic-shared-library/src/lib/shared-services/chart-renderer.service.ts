@@ -1,5 +1,4 @@
 import { Injectable, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
-import { NumberStatsComponent } from '../../../../my-app/src/app/number-stats/number-stats.component';
 import { BarChartComponent } from '../chart-components/bar-chart/bar-chart.component';
 import { LineChartComponent } from '../chart-components/line-chart/line-chart.component';
 import { PieChartComponent } from '../chart-components/pie-chart/pie-chart.component';
@@ -21,6 +20,7 @@ import { EditableTableComponent } from '../chart-components/editable-table/edita
 import { StackBarChartComponent } from '../chart-components/stack-bar-chart/stack-bar-chart.component';
 import { DynamicEditTableComponent } from '../chart-components/dynamic-edit-table/dynamic-edit-table.component';
 import { UploadFileComponent } from '../chart-components/upload-file/upload-file.component';
+import { NumberStatsComponent } from '../../../../../../../projects/my-app/src/app/number-stats/number-stats.component';
 
 
 @Injectable({

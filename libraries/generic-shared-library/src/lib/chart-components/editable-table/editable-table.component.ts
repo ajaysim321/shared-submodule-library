@@ -9,7 +9,6 @@ import { ConfigService } from '../../shared-services/config.service';
 import { debounceTime, Subject, switchMap, takeUntil } from 'rxjs';
 import { GlobalFilterService } from '../../shared-services/global-filter-service';
 import { formatDecimalWithCommas } from '../../utils/format.utils';
-import { CustomPayloadService } from '../../../../../my-app/src/app/shared/dashboard-payload-services/custom-payload.service';
 
 @Component({
   selector: 'app-editable-table',
@@ -59,7 +58,7 @@ export class EditableTableComponent {
 
   constructor(
     private fb: FormBuilder,
-    private configService: CustomPayloadService,
+    private configService: ConfigService,
     private globalFilterService: GlobalFilterService
   ) {
     this.form = this.fb.group({});
@@ -251,7 +250,7 @@ export class EditableTableComponent {
           this.editedYears.clear();
           this.updateFormWithApiResponse(res);
         },
-        error: (err) => {
+        error: (_err: any) => {
         },
       });
   }
@@ -332,7 +331,7 @@ export class EditableTableComponent {
           // this.isValidationSuccessful = false;
           setTimeout(() => this.clearMessages(), 5000);
         },
-        error: (err) => {
+        error: (_err: any) => {
           this.isLoading = false;
           this.errorMessage = 'Submit failed. Please try again.';
           setTimeout(() => this.clearMessages(), 5000);
@@ -412,7 +411,7 @@ export class EditableTableComponent {
         this.successMessage = 'Reset successful!';
         setTimeout(() => this.clearMessages(), 5000);
       },
-      error: (err) => {
+      error: (_err: any) => {
         this.isLoading = false;
         this.errorMessage = 'Reset failed. Please try again.';
         setTimeout(() => this.clearMessages(), 5000);

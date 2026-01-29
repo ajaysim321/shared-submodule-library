@@ -6,7 +6,6 @@ import { GlobalFilterService } from '../../shared-services/global-filter-service
 import { formatStat, commaSeparatedValue, formatDecimalWithCommas } from '../../utils/format.utils';
 import { DataErrorComponent } from '../../global-components/data-error/data-error.component';
 import { debounceTime, Subject, switchMap, takeUntil } from 'rxjs';
-import { CustomPayloadService } from '../../../../../my-app/src/app/shared/dashboard-payload-services/custom-payload.service';
 
 @Component({
   selector: 'app-horizontal-bar-chart',
@@ -26,7 +25,7 @@ export class HorizontalBarChartComponent implements AfterViewInit, OnDestroy {
   private unSubscribe$: Subject<void> = new Subject();
 
   constructor(
-    private configService: CustomPayloadService,
+    private configService: ConfigService,
     private globalFilterService: GlobalFilterService
   ) { }
 

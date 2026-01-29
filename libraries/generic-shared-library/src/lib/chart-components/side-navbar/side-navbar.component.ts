@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, Optional, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
@@ -8,8 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
-import { environment } from '../../../../../my-app/src/environments/environment';
 import { filter } from 'rxjs';
+import { ENVIRONMENT_CONFIG, EnvironmentConfig } from '../../shared-services/environment-config.token';
 
 @Component({
   selector: 'app-side-navbar',
@@ -33,8 +33,8 @@ export class SideNavbarComponent {
   isCollapsed = true;
   windowWidth = window.innerWidth;
   username!: string;
-  logo = environment.COMPANY_LOGO_SRC;
-  companyText = environment.COMPANY_LOGO_TEXT;
+  logo: string;
+  companyText: string;
 
   menuItems: any[] = [];
    isChatRoute: boolean = false;
@@ -42,8 +42,11 @@ export class SideNavbarComponent {
   constructor(
     private http: HttpClient,
     private keycloakService: KeycloakService,
-     private router: Router
+    private router: Router,
+    @Optional() @Inject(ENVIRONMENT_CONFIG) private envConfig: EnvironmentConfig
   ) {
+    this.logo = this.envConfig?.COMPANY_LOGO_SRC || '';
+    this.companyText = this.envConfig?.COMPANY_LOGO_TEXT || '';
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
@@ -89,12 +92,12 @@ export class SideNavbarComponent {
     }
   }
   goToHelp() {
-    const helpUrl = environment.HELP_URL || 'https://default.help.com';
+    const helpUrl = this.envConfig?.HELP_URL || 'https://default.help.com';
     window.open(helpUrl, '_blank');
   }
 
   goToFeedback() {
-    const feedbackUrl = environment.FEEDBACK_URL;
+    const feedbackUrl = this.envConfig?.FEEDBACK_URL;
     if (feedbackUrl) window.open(feedbackUrl, '_blank');
   }
 

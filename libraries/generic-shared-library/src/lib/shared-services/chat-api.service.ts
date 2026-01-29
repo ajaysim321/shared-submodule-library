@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
-import { environment } from '../../../../my-app/src/environments/environment';
+import { environment } from '../../../../../../../projects/my-app/src/environments/environment';
+// import { environment } from '../../../../my-app/src/environments/environment';.
 
 const AGENT_API_URL = environment.agentApiUrl;
 

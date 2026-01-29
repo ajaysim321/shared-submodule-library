@@ -6,7 +6,6 @@ import { GlobalFilterService } from '../../shared-services/global-filter-service
 import { DataErrorComponent } from '../../global-components/data-error/data-error.component';
 import { roundToNearestInteger, formatDecimalWithCommas, formatStat, formatStatOneDecimal } from '../../utils/format.utils';
 import { debounceTime, distinctUntilChanged, Subject, switchMap, takeUntil } from 'rxjs';
-import { CustomPayloadService } from '../../../../../my-app/src/app/shared/dashboard-payload-services/custom-payload.service';
 
 @Component({
   selector: 'app-line-column-chart',
@@ -28,7 +27,7 @@ export class LineColumnChartComponent implements AfterViewInit, OnDestroy {
   private currentFilters: any = {}; // Store current filters for reuse
 
   constructor(
-    private configService: CustomPayloadService,
+    private configService: ConfigService,
     private globalFilterService: GlobalFilterService,
     private renderer: Renderer2
   ) { }
@@ -380,7 +379,7 @@ export class LineColumnChartComponent implements AfterViewInit, OnDestroy {
           this.configService.getConfig(this.data.apiUrl, filters)
             .pipe(takeUntil(this.unSubscribe$))
             .subscribe({
-              next: (res) => {
+              next: (res: any) => {
                 console.log('Update API Response:', res);
                 this.chartData = this.data?.dataKey ? res[this.data.dataKey] : res;
                 this.editable = this.resolvePath(this.chartData, 'editable') || [];
@@ -388,7 +387,7 @@ export class LineColumnChartComponent implements AfterViewInit, OnDestroy {
                 this.renderChart(this.chartData);
                 this.removeInput();
               },
-              error: (err) => {
+              error: (err: any) => {
                 console.error('Failed to update chart data:', err);
                 this.hasError = true;
                 this.errorMessage = 'Failed to update value. Please try again.';

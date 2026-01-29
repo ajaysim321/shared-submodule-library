@@ -4,7 +4,6 @@ import { ConfigService } from '../../shared-services/config.service';
 import { GlobalFilterService } from '../../shared-services/global-filter-service';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { formatStatOneDecimal } from '../../utils/format.utils';
-import { CustomPayloadService } from '../../../../../my-app/src/app/shared/dashboard-payload-services/custom-payload.service';
 
 @Component({
   selector: 'lib-combined-chart',
@@ -30,7 +29,7 @@ export class CombinedChartComponent implements AfterViewInit, OnDestroy {
   private selectedDataIndex: number | null = null;
 
   constructor(
-    private configService: CustomPayloadService,
+    private configService: ConfigService,
     private globalFilterService: GlobalFilterService
   ) { }
 
@@ -60,7 +59,7 @@ export class CombinedChartComponent implements AfterViewInit, OnDestroy {
       })
       .pipe(takeUntil(this.unSubscribe$))
       .subscribe({
-        next: (res) => {
+        next: (res: any) => {
           this.renderChart(
             res?.data ?? '',
             filters?.queryParams?.button?.[0] ?? ''
