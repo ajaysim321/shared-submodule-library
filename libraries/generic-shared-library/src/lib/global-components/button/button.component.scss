@@ -1,0 +1,15 @@
+.btn {
+    background: #b4061b;
+    color: white;
+    border: none;
+    padding: 6px;
+    margin-top: 29px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 230px;
+}
+
+.btn-selected {
+    border: 2px solid #083970bf;
+}

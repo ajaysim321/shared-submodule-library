@@ -1,0 +1,87 @@
+<div class="nav-bar" style="height: 100vh; overflow: hidden;">
+  <!-- Make Top Toolbar Fixed -->
+  <mat-toolbar class="d-flex justify-content-between align-items-center px-3 custom-toolbar-shadow"
+
+    style="background-image: linear-gradient(to right, rgb(216, 45, 45), #8b0000); position: fixed; top: 0; left: 0; right: 0; z-index: 1001; color: white; padding: 0.5rem;">
+    
+    <div class="d-flex align-items-center">
+        <img [src]="logo" alt="Logo" style="height: 30px; margin-right: 0.5rem;">
+
+        <span class="fw-bold fs-5"> {{ companyText }}</span>
+    </div>
+   
+    <div class="d-flex align-items-center gap-3">
+       <div style="font-weight: 500;">Welcome, {{ username }} </div>
+
+<button mat-icon-button style="color: white;" title="Feedback" (click)="goToFeedback()">
+        <mat-icon class="material-symbols-outlined">feedback</mat-icon>
+      </button>
+      
+      <button mat-icon-button style="color: white;" title="Notifications" (click)="showNotifications()">
+        <mat-icon class="material-symbols-outlined">notifications</mat-icon>
+      </button>
+      
+        <div class="vl hidden lg:block"></div>
+
+        <button mat-icon-button style="color: white;" title="Help" (click)="goToHelp()">
+          <mat-icon class="icon-size_home">help_outline</mat-icon>
+        </button>
+
+      <button mat-icon-button (click)="logout()" title="Logout"  style="color: white;">
+
+        <!-- <div class="vl hidden lg:block mt-2"></div> -->
+      <!-- <button mat-icon-button (click)="logout()" title="Logout" class="text-black" style="color: white;"> -->
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+
+
+  <!-- Main Layout -->
+  <mat-sidenav-container class="flex-1 h-full">
+    <!-- Sidebar -->
+    <mat-sidenav #sidenav [mode]="'side'" [opened]="true"
+      class="sidenav position-fixed transition-all duration-300 ease-in-out" style="top: 40px; height: calc(100vh - 40px); background-color: #000000ec;
+         box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2); z-index: 1000;" [style.width.%]="isCollapsed ? 5 : 16">
+      <div class="flex items-center justify-between px-3 pt-3">
+        <button mat-icon-button (click)="toggleSidebar()" style="color: white;" class="">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div>
+        <mat-nav-list>
+          <a mat-list-item *ngFor="let item of menuItems" class="menuItems flex items-center text-white block px-4" 
+            [routerLink]="item.path" [ngClass]="{'justify-center': isCollapsed}" [matTooltip]="item.name" [matTooltipPosition]="'right'">
+            <mat-icon style="color: white;" class="pt-2" [ngClass]="{'mr-0': isCollapsed}">{{ item.icon }}</mat-icon>
+            <span style="padding-left: 20px; font-weight: 500; color: white;" [ngClass]="{'hidden': isCollapsed}">{{ item.name
+              }}</span>
+          </a>
+        </mat-nav-list>
+      </div>
+    </mat-sidenav>
+
+    <!-- Main Content -->
+    <!-- <mat-sidenav-content class="bg-gray-100 transition-all duration-300 ease-in-out overflow-auto"
+      [style.marginLeft.%]="isCollapsed ? 5 : 16" [style.width.%]="isCollapsed ? 95 : 84"
+      style="margin-top: 40px; height: calc(100vh - 40px); overflow-y: auto;">
+
+      <div style="margin: 1.5rem;">
+        <div class="fullpage-scroll">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-sidenav-content> -->
+
+    <mat-sidenav-content class="bg-gray-100 transition-all duration-300 ease-in-out overflow-auto"
+      [style.marginLeft.%]="isCollapsed ? 5 : 16" [style.width.%]="isCollapsed ? 95 : 84"
+      style="margin-top: 40px; height: calc(100vh - 40px); overflow-y: auto;">
+
+      <div [style.margin]="isChatRoute ? '0' : '1.5rem'" style="height: 100%;">
+        <div class="fullpage-scroll" style="height: 100%;">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

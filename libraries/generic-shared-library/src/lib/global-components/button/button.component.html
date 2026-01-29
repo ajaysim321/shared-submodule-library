@@ -1,0 +1,6 @@
+<button
+  class="btn"
+  [ngClass]="{ 'btn-selected': isSelected() }"
+  (click)="onClick(data.key)">
+  {{ data.label }}
+</button>

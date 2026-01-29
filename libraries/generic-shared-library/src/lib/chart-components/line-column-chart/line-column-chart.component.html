@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-header" style="border-bottom: none;">
+    <div class="card-title d-flex flex-column align-items-center">
+      <h4 style="margin: 0;">{{ data.title }}</h4>
+    </div>
+  </div>
+  <div class="card-body">
+    <div [id]="data.widgetId" style="height: 400px;" [hidden]="hasError"></div>
+    <app-data-error *ngIf="hasError" [message]="errorMessage"></app-data-error>
+  </div>
+</div>

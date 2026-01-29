@@ -1,0 +1,76 @@
+<ng-container *ngIf="shouldRender">
+  <div *ngIf="isTableLocked" class="lock-message">
+    Please submit the workflow or cancel them to delete the records.
+  </div>
+
+ 
+  <ng-container *ngIf="!loading; else loader">
+    <div *ngFor="let table of multipleTables; let i = index" class="table-wrapper" [class.locked]="isTableLocked">
+       <div class="file-name-display">
+        <h3>{{ table.fileName }}</h3>
+        <button *ngIf="!isEditable" mat-icon-button (click)="refreshTable()" matTooltip="Refresh Table">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+      <div class="table-container">
+        <div class="table-horizontal-wrapper">
+          <table class="custom-table">
+            <thead class="table-header">
+              <tr>
+                <th *ngFor="let col of table.columns">{{ col }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of table.tableData">
+                <td *ngFor="let col of table.columns">
+                  <ng-container *ngIf="isEditable && !table.isError; else viewMode">
+                    <input
+                      type="text"
+                      class="table-input"
+                      [value]="row[col]"
+                      (input)="onCellEdit(row, col, $event)"
+                    />
+                  </ng-container>
+                  <ng-template #viewMode>
+                    <a *ngIf="col === 'error_stack' && row[col] && row[col] !== 'No Error'" (click)="showError(row[col])" class="error-link">Error</a>
+                    <div *ngIf="col !== 'error_stack' || !row[col] || row[col] === 'No Error'" class="view-mode-cell" [class.error-message]="table.isError">
+                      {{ row[col] }}
+                    </div>
+                  </ng-template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-actions" *ngIf="showAddButton">
+        <button mat-icon-button class="add-row-btn" (click)="addRow(i)" matTooltip="Add a new row to this table">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="component-actions" *ngIf="data?.actions?.length > 0">
+    <ng-container *ngFor="let action of data.actions">
+      <button
+        *ngIf="isActionVisible(action)"
+        mat-raised-button
+        class="action-button"
+        [ngClass]="{
+          'btn-cancel': action.label === 'Cancel',
+          'btn-grey': action.label === 'Upload' || action.label === 'Add Record',
+          'btn-submit': action.label === 'Submit',
+          'action-button-black': !['Cancel', 'Upload', 'Add Record', 'Submit'].includes(action.label)
+        }"
+        (click)="handleAction(action)"
+        [disabled]="(action.label === 'Submit' && isSubmitDisabled) || (action.label === 'Add Record' && isAddRecordDisabled)">
+        {{ action.label }}
+      </button>
+    </ng-container>
+  </div>
+
+  <ng-template #loader>
+    <p class="loading-text">Loading table...</p>
+  </ng-template>
+</ng-container>

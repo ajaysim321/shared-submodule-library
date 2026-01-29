@@ -1,0 +1,49 @@
+<div class="filters-row" style="display: flex;  gap: 16px">
+  <div class="filter-container">
+    <label class="filter-label">{{ data?.name }}</label>
+    <ng-select [items]="filteredOptions" [multiple]="data?.isMultiSelect" [closeOnSelect]="false" [(ngModel)]="selected"
+      [searchable]="false" [clearable]="true" [placeholder]="'All'" (change)="onChange($event)" (close)="onDropdownClose()">
+      <ng-template ng-header-tmp>
+        <div class="custom-header">
+          <!-- Search input -->
+          <div class="search-wrapper">
+            <mat-icon class="search-icon" fontIcon="search"></mat-icon>
+            <input type="text" class="search-input" placeholder="Search" [formControl]="searchCtrl" (keydown)="$event.stopPropagation()"/>
+          </div>
+
+        <div class="custom-option" *ngIf="data?.isMultiSelect">
+          <input type="checkbox" id="select-all" [checked]="isAllSelected" (change)="toggleSelectAll($event)" />
+          <label for="select-all">&nbsp;Select All</label>
+        </div>
+        </div>
+      </ng-template>
+
+      <ng-template ng-option-tmp let-item="item" let-index="index">
+        <div [title]="item" (click)="onItemClick(item)">
+          <input id="item-{{ index }}" type="checkbox" [checked]="isItemSelected(item)"
+          [matTooltip]="item"
+    matTooltipPosition="right"
+     />
+          {{ item }}
+        </div>
+      </ng-template>
+
+      <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+        <div class="custom-multi-label-wrapper">
+          <ng-container *ngIf="items?.length > 0">
+            <div class="ng-value">
+              <span class="ng-value-icon left" (click)="clear(items[0])">×</span>
+              <span class="ng-value-label">
+                {{ items[0] }}
+              </span>
+            </div>
+          </ng-container>
+          <span class="tag-summary" *ngIf="items?.length > 1">
+            +{{ items.length - 1 }} more
+          </span>
+        </div>
+      </ng-template>
+
+    </ng-select>
+  </div>
+</div>

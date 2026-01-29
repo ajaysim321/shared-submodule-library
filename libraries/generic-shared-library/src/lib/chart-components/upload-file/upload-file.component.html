@@ -1,0 +1,83 @@
+<ng-container *ngIf="shouldRender">
+  <!-- Upload View -->
+  <div *ngIf="!isUploadSuccessful">
+    <div class="host-container">
+      <div class="upload-container">
+        <h3 class="upload-title">{{ data?.title || title }}</h3>
+
+        <!-- Drag and Drop Zone -->
+        <div
+          class="upload-dropzone"
+          [class.dragging]="isDragging"
+          (drop)="onDrop($event)"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+        >
+          <mat-icon>cloud_upload</mat-icon>
+          <p>Drag & drop files here or</p>
+          <button mat-raised-button color="primary" (click)="fileInput.click()">
+            Browse
+          </button>
+          <input
+            #fileInput
+            type="file"
+            [multiple]="multiple"
+            [accept]="accept"
+            hidden
+            (change)="onFileSelected($event)"
+          />
+        </div>
+
+        <!-- File List -->
+        <div class="file-list" *ngIf="files.length > 0">
+          <div class="file-item" *ngFor="let file of files; let i = index">
+            <mat-icon>insert_drive_file</mat-icon>
+            <span class="file-name">{{ file.name }}</span>
+            <span class="file-size">({{ file.size / 1024 | number : '1.0-0' }} KB)</span>
+            <button
+              mat-icon-button
+              color="warn"
+              matTooltip="Remove file"
+              (click)="removeFile(i)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success/Locked View -->
+  <div *ngIf="isUploadSuccessful">
+    <div class="lock-message">
+      File uploaded successfully. Please submit the workflow or cancel to upload new files.
+    </div>
+    <div class="file-list-success">
+      <div class="file-item" *ngFor="let fileName of uploadedFileNames">
+        <mat-icon>description</mat-icon>
+        <span class="file-name">{{ fileName }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions Bar -->
+  <div class="component-actions" *ngIf="data?.actions?.length > 0">
+    <ng-container *ngFor="let action of data.actions">
+      <button
+        *ngIf="isActionVisible(action)"
+        mat-raised-button
+        class="action-button"
+        [ngClass]="{
+          'btn-cancel': action.label === 'Cancel',
+          'btn-grey': action.label === 'Upload' || action.label === 'Add Record',
+          'btn-submit': action.label === 'Submit',
+          'action-button-black': !['Cancel', 'Upload', 'Add Record', 'Submit'].includes(action.label)
+        }"
+        [disabled]="(action.label === 'Submit' && isSubmitDisabled) || (action.label === 'Upload' && isUploadDisabled)"
+        (click)="handleAction(action)">
+        {{ action.label }}
+      </button>
+    </ng-container>
+  </div>
+</ng-container>

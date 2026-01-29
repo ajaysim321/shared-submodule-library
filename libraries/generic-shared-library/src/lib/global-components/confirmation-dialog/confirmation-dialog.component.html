@@ -1,0 +1,17 @@
+<div class="dialog-container">
+  <div  class="dialog-header">
+    <h4 [style.color]="data.isError ? '#f44336' : null">{{ data.title }}</h4>
+    <button mat-icon-button class="close-button" (click)="onDismiss()" matTooltip="Close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-content">
+    <p>{{ data.message }}</p>
+  </div>
+
+  <div class="dialog-actions" *ngIf="data.showActions === undefined || data.showActions">
+    <button mat-stroked-button class="cancel-button"  (click)="onDismiss()">Cancel</button>
+    <button mat-flat-button class="confirm-button"   (click)="onConfirm()">Confirm</button>
+  </div>
+</div>
