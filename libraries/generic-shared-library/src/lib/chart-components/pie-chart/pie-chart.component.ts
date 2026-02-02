@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, OnDestroy } from '@angular/core';
 import * as echarts from 'echarts';
 import { ConfigService } from '../../shared-services/config.service';
 import { GlobalFilterService } from '../../shared-services/global-filter-service';
@@ -13,10 +13,10 @@ export class PieChartComponent implements AfterViewInit, OnDestroy {
   private myChart!: echarts.ECharts;
   private resizeHandler = () => this.myChart?.resize();
 
-  constructor(
-    private configService: ConfigService,
-    private globalFilterService: GlobalFilterService
- ) {
+  protected configService = inject(ConfigService);
+  protected globalFilterService = inject(GlobalFilterService);
+
+  constructor() {
     this.globalFilterService.filter$.subscribe((filters) => {
       if (Object.keys(filters).length !== 0) {
         this.loadAndRenderChart(filters);
